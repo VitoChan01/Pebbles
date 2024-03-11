@@ -1,0 +1,2 @@
+model_checkpoint_path: "pix2pix_nodepth_training_checkpointsckpt-10"
+all_model_checkpoint_paths: "pix2pix_nodepth_training_checkpointsckpt-10"

@@ -1,0 +1,11 @@
+metasam/
+ML/
+Models/
+ortho/
+outimg/
+*.ply
+*.pickle
+*.npy
+SAM.ipynb
+ballmode_notennis.ipynb
+logs/

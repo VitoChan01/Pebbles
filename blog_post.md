@@ -57,7 +57,13 @@ The U-Net on the other hand was compiled using Adam algorithm with learning rate
 The reason of using 2 different split has to do with a concern regarding the dataset. While variations were made in the view angle and lighting conditions, all images were essentially capturing the same study object. To examine if the training results can actually be generalized, split 1 and 2 restrict the view angles available to the training process as an attempt to evaluate the actual performance. For all models, an 8 fold kfold cross-validation was also performed.
 
 # Results
-## Training history
+## SAM segmentation
+<center>
+<figure>
+<a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/ZED_sam.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/ZED_sam.png?raw=true width="80%" height="80%" ></a><figcaption> Figure 2: Segment-Anything segmentation of the pebble setup. </figcaption>
+</figure>
+</center>
+
 <div style="display: flex; flex-direction: row; justify-content: center;">
     <figure style="margin-right: 20px;">
         <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
@@ -68,6 +74,19 @@ The reason of using 2 different split has to do with a concern regarding the dat
         <figcaption>Figure 2: Another example.</figcaption>
     </figure>
 </div>
+
+## U-Net training history
+<div style="display: flex; flex-direction: row; justify-content: center;">
+    <figure style="margin-right: 20px;">
+        <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
+        <figcaption>Figure 1: Example of the pebble setup taken from middle-left angle.</figcaption>
+    </figure>
+    <figure>
+        <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
+        <figcaption>Figure 2: Another example.</figcaption>
+    </figure>
+</div>
+
 ## Accuracy
 %can do?
 check accuracy of combined approach. give some measurement of extracted pebble size? or extract a pebble point cloud?

@@ -52,46 +52,101 @@ ZED 2i was used to retreive the RGB image, the depth estimation and the reprojec
 ## Model
 Meta has provides 3 pretrained checkpoints for SAM. Three model have different neural network size, base ViT-B, large ViT-L, and huge ViT-H. ViT-H was used for the automatic mask generation with default settings.
 
-The U-Net on the other hand was compiled using Adam algorithm with learning rate &alpha; = 0.1 for optimization. Binary cross-entropy loss function using binary IoU was chosen for binary segmentation, threshold was set at 0.5. The training was performed using batch size B = 64 and epoch e = 100. In total 4 models were trained. 2 models were trained using 13 nadir images. 13 images were divided into 4500 128x128 patches, of which ~20% were retained for validation. The remaining 12 oblique images were used as test images to evalue the model. They were not used in the training process. 2 models were trained using this dataset split, one with the depth layer and one without. For convenience, they were named split1-D (with depth) and split1-C (RGB only) respectively. The remaining 2 models were also differentiated by the use of depth layer but they were trained with a different dataset split. For these 2 models 9 nadir images and 4 oblique images (2 high angle, 1 mid angle, and 1 low angle) were used in the training instead of 13 nadir images. Following the same convention, they were named split2-D and split2-C.
+The U-Net on the other hand was compiled using Adam algorithm with learning rate &alpha; = 0.1 for optimization. Binary cross-entropy loss function using binary IoU was chosen for binary segmentation, threshold was set at 0.5. The training was performed using batch size B = 64 and epoch e = 100. In total 4 models were trained. 2 models were trained using 13 nadir images. 13 images were divided into 4500 128x128 patches, of which ~20% were retained for validation. The remaining 12 oblique images were used as test images to evalue the model. They were not used in the training process. 2 models were trained using this dataset split, one with the depth layer and one without. For convenience, they were named split1D (with depth) and split1C (RGB only) respectively. The remaining 2 models were also differentiated by the use of depth layer but they were trained with a different dataset split. For these 2 models 9 nadir images and 4 oblique images (2 high angle, 1 mid angle, and 1 low angle) were used in the training instead of 13 nadir images. Following the same convention, they were named split2D and split2C.
 
 The reason of using 2 different split has to do with a concern regarding the dataset. While variations were made in the view angle and lighting conditions, all images were essentially capturing the same study object. To examine if the training results can actually be generalized, split 1 and 2 restrict the view angles available to the training process as an attempt to evaluate the actual performance. For all models, an 8 fold kfold cross-validation was also performed.
 
 # Results
 ## SAM segmentation
+The results of SAM segmentation were demonstrated below. SAM returns a binary mask for each individual segments, figure 2 shows an example of aggregated mask plotted with the original image. SAM model was trained with RGB photos hence depth image was not used. Figure 3 plots the accuracy of the segmentation by image. Image 0 to 12 were nadir images with variation in lighting condition, 13-24 were oblique image with variation in view angle. The accuracy was assessed by pixel and by pebble. By pixel consider if a pixel that was manually labeled 
+%%write how ac were calculated
+
 <center>
 <figure>
 <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/ZED_sam.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/ZED_sam.png?raw=true width="80%" height="80%" ></a><figcaption> Figure 2: Segment-Anything segmentation of the pebble setup. </figcaption>
 </figure>
 </center>
+<center>
+<figure >
+    <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/sam_pixel_count.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/sam_pixel_count.png?raw=true width="50%" height="40%"></a>
+    <figcaption>Figure 3: Accuracy of SAM segmentation.</figcaption>
+</figure>
+</center>
+
+
+## U-Net training history and accuracy
+Figure 4 shows the training history of all splits at the first fold. Accuracy accessed through precesion, accuracy, F1 score, and binary IoU. The metrics were only calculated for test images that the models have seen in the training process. Figure 5 shows the accuracy metrics by image at different threshold. Solid line shows the mean value over 8 folds kfold and the shaded area highlights the 25th to 75th percentile. For the view angle correponding to each test images please see table 1. Figure 6 shows the the accuracy variation over the folds. Solid line represent the mean value over all test images with threshold=0.7 while the shaded area indicates the threhold = 0.5-0.9.
 
 <div style="display: flex; flex-direction: row; justify-content: center;">
-    <figure style="margin-right: 20px;">
-        <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
-        <figcaption>Figure 1: Example of the pebble setup taken from middle-left angle.</figcaption>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image1.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4a: Training history of Split1D Kfold 0</figcaption>
     </figure>
-    <figure>
-        <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
-        <figcaption>Figure 2: Another example.</figcaption>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image2.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4b: Training history of Split1C Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image3.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4c: Training history of Split2D Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1;">
+        <a href="#"><img src="image4.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4d: Training history of Split2C Kfold 0</figcaption>
     </figure>
 </div>
 
-## U-Net training history
+Table 1. Test images
+<center>
+
+| Split | Nadir | Oblique high | Oblique mid | Oblique low |
+|:-----------------:|:-----------------:|:-----------------:|:-----------------:|:-----------------:|
+| split1   | -- | Image 0-3 | Image 4-7 | Image 7-11 |
+| split2   | Image 8-11 | Image 0-1| Image 2-4 | Image 5-7 |
+</center>
+
 <div style="display: flex; flex-direction: row; justify-content: center;">
-    <figure style="margin-right: 20px;">
-        <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
-        <figcaption>Figure 1: Example of the pebble setup taken from middle-left angle.</figcaption>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image1.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4a: Training history of Split1D Kfold 0</figcaption>
     </figure>
-    <figure>
-        <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%"></a>
-        <figcaption>Figure 2: Another example.</figcaption>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image2.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4b: Training history of Split1C Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image3.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4c: Training history of Split2D Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1;">
+        <a href="#"><img src="image4.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4d: Training history of Split2C Kfold 0</figcaption>
     </figure>
 </div>
 
-## Accuracy
-%can do?
-check accuracy of combined approach. give some measurement of extracted pebble size? or extract a pebble point cloud?
+<div style="display: flex; flex-direction: row; justify-content: center;">
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image1.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4a: Training history of Split1D Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image2.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4b: Training history of Split1C Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1; margin-right: 10px;">
+        <a href="#"><img src="image3.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4c: Training history of Split2D Kfold 0</figcaption>
+    </figure>
+    <figure style="flex: 1;">
+        <a href="#"><img src="image4.jpg" width="90%" height="90%"></a>
+        <figcaption>Figure 4d: Training history of Split2C Kfold 0</figcaption>
+    </figure>
+</div>
+
 # Conclusion and discussion
-
+can do?
+change camera parameter?
+check accuracy of combined approach. give some measurement of extracted pebble size? or extract a pebble point cloud?
 # Reference
 Kirillov, A., Mintun, E., Ravi, N., Mao, H., Rolland, C., Gustafson, L., Xiao, T., Whitehead, S., Berg, A. C., Lo, W.-Y., Dollár, P., & Girshick, R. (2023). Segment Anything. 2023 IEEE/CVF International Conference on Computer Vision (ICCV), 3992–4003. https://doi.org/10.1109/ICCV51070.2023.00371
 Mustafah, Y. M., Noor, R., Hasbi, H., & Azma, A. W. (2012). Stereo vision images processing for real-time object distance and size measurements. 2012 International Conference on Computer and Communication Engineering (ICCCE), 659–663. https://doi.org/10.1109/ICCCE.2012.6271270

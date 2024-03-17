@@ -38,14 +38,47 @@ This project approached the challenge from 2 angles. First, introduce a depth la
 Second, combine instance segmentation (Meta Segment-Anything) and semantic segmentation (U-Net) through a 2-pass approach to achieve extraction of individual grain samples. U-Net is a powerful tool capable of picking up features at different scale. Yet, while U-Net is capable of producing reliable results, it only performs a semantic segmentation. To separately sample individual grain, a second pass instance segmentation can be performed on top of the first pass U-Net result. The Meta Segment-Anything Model(SAM) was used in this project to perform the second pass segmentation. SAM is a pretrained model developed by Meta Platforms, Inc. (formerly Facebook). SAM was trained with large amount of data (1 billion masks and 11 million images) and evaluation of the model have shown that it provides reliable zero-shot performance (Kirillov et al., 2023). Should it performs reliably without the need of fine-tuning, significant time and computation power can be saved.
 
 ## Data collection
-The Stereolabs ZED 2i stereo camera together with their software ZED SDK 4.0 was used to collect the data used in this project. The pebble setup (figure 1) was used as study object to collect in total 25 images. These 25 images were taken in 5 different angle, namely 1 (near-)nadir view and 4 top-down oblique view (backward, forward, left, and right). Each top-down oblique view were taken in 3 different height, giviing a high angle view image, mid angle view image, and a low angle view image. In total that adds up to 12 oblique images. While all remaining 13 images were take in nadir view, each nadir image were taken in different lighting condition. That includes variation in lighting intensity, direction, and number light source. 
+The Stereolabs ZED 2i stereo camera together with their software ZED SDK 4.0 was used to collect the data used in this project. The pebble setup (figure 1 and 2) was used as study object to collect in total 25 images. These 25 images were taken in 5 different angle, namely 1 (near-)nadir view and 4 top-down oblique view (backward, forward, left, and right). Each top-down oblique view were taken in 3 different angle, giviing a high angle view image, mid angle view image, and a low angle view image. In total that adds up to 12 oblique images. While all remaining 13 images were take in nadir view, each nadir image were taken in different lighting condition. That includes variation in lighting intensity, direction, and number light source. 
 
-<center>
 <figure>
-<a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/example_setup.png?raw=true width="90%" height="90%" ></a><figcaption> Figure 1: Example of the pebble setup taken from middle-left angle. </figcaption>
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_imgL.jpg?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_imgL.jpg?raw=true width="100%" height="100%"></a>
+            <figcaption>a: Left image</figcaption>
+        </figure>
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_imgR.jpg?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_imgR.jpg?raw=true width="100%" height="100%"></a>
+            <figcaption>b: Right image</figcaption>
+        </figure>
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_depth.jpg?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_depth.jpg?raw=true width="100%" height="100%"></a>
+            <figcaption>c: Depth image</figcaption>
+        </figure>
+    </div>
+    <div style="text-align: center;">
+        <figcaption>Figure 1: Example of the pebble setup taken from high-left angle.</figcaption>
+    </div>
 </figure>
-</center>
 
+<figure>
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_imgL.jpg?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_imgL.jpg?raw=true width="100%" height="100%"></a>
+            <figcaption>a: Left image</figcaption>
+        </figure>
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_imgR.jpg?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_imgR.jpg?raw=true width="100%" height="100%"></a>
+            <figcaption>b: Right image</figcaption>
+        </figure>
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_depth.jpg?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_depth.jpg?raw=true width="100%" height="100%"></a>
+            <figcaption>c: Depth image</figcaption>
+        </figure>
+    </div>
+    <div style="text-align: center;">
+        <figcaption>Figure 2: Example of the pebble setup taken from low-left angle.</figcaption>
+    </div>
+</figure>
 ZED 2i was used to retreive the RGB image, the depth estimation and the reprojected point cloud. Depth sensing was performed using the neural depth mode. This mode utilize model trained by Stereolabs to fill gaps and correct for noise. The estimated depth map was aligned to the image captured by the left sensor and comes in the HD2K resolution (2208x1242). For all 25 images, each image and measurement were average of 30 exposures to provide consistency and hand labeled using Napari.
 
 

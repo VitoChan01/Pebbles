@@ -79,8 +79,24 @@ The Stereolabs ZED 2i stereo camera together with their software ZED SDK 4.0 was
         <figcaption>Figure 2: Example of the pebble setup taken from low-left angle.</figcaption>
     </div>
 </figure>
+
 ZED 2i was used to retreive the RGB image, the depth estimation and the reprojected point cloud. Depth sensing was performed using the neural depth mode. This mode utilize model trained by Stereolabs to fill gaps and correct for noise. The estimated depth map was aligned to the image captured by the left sensor and comes in the HD2K resolution (2208x1242). For all 25 images, each image and measurement were average of 30 exposures to provide consistency and hand labeled using Napari.
 
+<figure>
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_point_cloud.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/high_point_cloud.png?raw=true width="100%" height="100%"></a>
+            <figcaption>a: High-left angle</figcaption>
+        </figure>
+        <figure style="flex: 1; margin-right: 0px;">
+            <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_point_cloud.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/low_point_cloud.png?raw=true width="100%" height="100%"></a>
+            <figcaption>b: Low-left angle</figcaption>
+        </figure>
+    </div>
+    <div style="text-align: center;">
+        <figcaption>Figure 3: Example of the pebble point cloud generated.</figcaption>
+    </div>
+</figure>
 
 ## Model
 Meta has provides 3 pretrained checkpoints for SAM. Three model have different neural network size, base ViT-B, large ViT-L, and huge ViT-H. ViT-H was used for the automatic mask generation with default settings.

@@ -214,10 +214,12 @@ Table 1. Test images
 <figcaption>Figure 8: Consistency over folds.</figcaption>
 </center>
 
+Through the union of SAM mask and U-Net mask, point cloud of individual pebbles can be created easily. Figure 9 presents an example created through open3d `geometry.create_point_cloud_from_depth_image`. Unfortunately, the example presented here was not properly scaled. For the pint cloud to be correctly scaled, 4 calibration parameters are necessary. These are the x,y focal length and principal points of the ZED 2i camera. These parameters are accessible through the camera API but unfortunately they were not exported and saved before returning the camera to the University. Nevertheless, it is possible to create point clouds for further analysis based on segmentation results. 
+
 <center>
 <figure style="flex: 1; margin-right: 0px;">
     <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/pebble_point_cloud.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/pebble_point_cloud.png?raw=true width="80%" height="80%"></a>
-    <figcaption>Figure 9: E</figcaption>
+    <figcaption>Figure 9: Point cloud of a pebble created from segmented depth map and RGB image </figcaption>
 </figure>
 </center>
 

@@ -1,14 +1,12 @@
 ---
-title: '
-'
+title: 'A U-Net-SAM 2-pass approach with stereo depth sensing for river pebble panoptic segmentation'
 author: "Man Tuen Chan"
 author_profile: true
-date: 2024-03-12
+date: 2024-03-18
 # permalink:
 toc: true
 toc_sticky: true
-toc_label: "
-"
+toc_label: "A U-Net-SAM 2-pass approach with stereo depth sensing for river pebble panoptic segmentation"
 header:
   overlay_image: 
   overlay_filter: 0.3
@@ -16,18 +14,14 @@ header:
   "
 read_time: false
 tags:
-  - Stereo vision
+  - Stereo depth
   - segmentation
-  - classification
+  - Segment-Anything
   - U-Net
 ---
 
 # Introduction
-General idea:\
-do a instance segmentation of pebbles see wt works better
-why? search later
-
-Sediment charateristics and grain-size distribution carries important information on the drainage system, the ecosystem, and the weather condition (Soloy et al., 2020; Wang et al., 2019). Unfortunately, traditional methods to manually collect these information are costly, labor intensive, and time consuming. Over the years, various techniques have been developed seeking to reduce manual input through machine learning. This project is an attempt to utilize a U-Net-SAM 2-pass approach in conjunction with stereo depth estimation to automize image based sampling. 
+Sediment charateristics and grain-size distribution carries important information on the drainage system, the ecosystem, and the weather condition (Soloy et al., 2020; Wang et al., 2019). Unfortunately, traditional methods to manually collect these information are costly, labor intensive, and time consuming. Over the years, various techniques have been developed seeking to reduce manual input through machine learning. This project is an attempt to utilize an U-Net-SAM 2-pass approach in conjunction with stereo depth estimation to automize image based sampling. 
 
 *This internship was supervised by Prof. Dr. Bodo Bookhagen.*
 
@@ -223,7 +217,7 @@ Through the union of SAM mask and U-Net mask, point cloud of individual pebbles 
 </center>
 
 # Conclusion and discussion
-This project is an attempt to utilize a U-Net-SAM 2-pass approach in conjunction with stereo depth estimation to automize image based sampling. To assess the feasibility of this approach, The ZED 2i camera was used to capture a series of RGB and depth images from different angle and under different lighting condition. These images were manually labeled and segmented with the Meta SAM model. 
+This project is an attempt to utilize an U-Net-SAM 2-pass approach in conjunction with stereo depth estimation to automize image based sampling. To assess the feasibility of this approach, The ZED 2i camera was used to capture a series of RGB and depth images from different angle and under different lighting condition. These images were manually labeled and segmented with the Meta SAM model. 
 
 The results of SAM segmentation were visually impressive yet the accuracy reveals that the drop some imperfection as view angle steppen. The main issue seems to be the partial overlapping that does not completely hide the pebbles. These mostly covered pebbles leave out a small edge that is still noticeable to human yet challenging for SAM to distinguish. One speculation as to why SAM is struggling with these partially covered pebbles is that it has to do with scale. Based on experience, SAM seems to favor the assumption that objects are in similar scale. It could be related to the use of point grid as input prompt, this assumption often lead to over-segmentation grains that are notably larger then the surroundings. As the view angle steppen more pebbles were partially covered, resulting in higher percent of non segmented pebbles. Another factor that stands out is the lighting condition. With strong artificial lighting there is a higher tendency of missing objects while the absence of artificial lighting does not really impact the performance. Nevertheless, with nadir images SAM is capable of producing reliable segmentation without the need of fine-tuning.
 

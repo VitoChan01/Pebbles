@@ -107,7 +107,7 @@ The U-Net on the other hand was compiled using Adam algorithm with learning rate
 
 The reason of using 2 different split has to do with a concern regarding the dataset. While variations were made in the view angle and lighting conditions, all images were essentially capturing the same study object. To examine if the training results can actually be generalized, split 1 and 2 restrict the view angles available to the training process as an attempt to evaluate the actual performance. 
 
-For all models, an 8 fold kfold cross-validation was also performed.
+For all models, an 8 fold kfold cross-validation was also performed. The training and validation dataset were shuffled before the split and all models uses the same split for all 8 folds. 
 
 # Results
 ## SAM segmentation
@@ -214,12 +214,22 @@ Table 1. Test images
 <figcaption>Figure 8: Consistency over folds.</figcaption>
 </center>
 
+<figure style="flex: 1; margin-right: 0px;">
+    <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/Accuracy_plot/pebble_unet_Split2D_kfold_consistency.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/Accuracy_plot/pebble_unet_Split2D_kfold_consistency.png?raw=true width="100%" height="100%"></a>
+    <figcaption>d: Split2D</figcaption>
+</figure>
+
 # Conclusion and discussion
+
+
 can do?
 change camera parameter?
 check accuracy of combined approach. give some measurement of extracted pebble size? or extract a pebble point cloud?
 # Reference
 Kirillov, A., Mintun, E., Ravi, N., Mao, H., Rolland, C., Gustafson, L., Xiao, T., Whitehead, S., Berg, A. C., Lo, W.-Y., Dollár, P., & Girshick, R. (2023). Segment Anything. 2023 IEEE/CVF International Conference on Computer Vision (ICCV), 3992–4003. https://doi.org/10.1109/ICCV51070.2023.00371
+
 Mustafah, Y. M., Noor, R., Hasbi, H., & Azma, A. W. (2012). Stereo vision images processing for real-time object distance and size measurements. 2012 International Conference on Computer and Communication Engineering (ICCCE), 659–663. https://doi.org/10.1109/ICCCE.2012.6271270
-Soloy, A., Turki, I., Fournier, M., Costa, S., Peuziat, B., & Lecoq, N. (2020). A Deep Learning-Based Method for Quantifying and Mapping the Grain Size on Pebble Beaches. Remote Sensing, 12(21), Article 21. https://doi.org/10.3390/rs12213659\
-Wang, C., Lin, X., & Chen, C. (2019). Gravel Image Auto-Segmentation Based on an Improved Normalized Cuts Algorithm. Journal of Applied Mathematics and Physics, 7(3), Article 3. https://doi.org/10.4236/jamp.2019.73044\
+
+Soloy, A., Turki, I., Fournier, M., Costa, S., Peuziat, B., & Lecoq, N. (2020). A Deep Learning-Based Method for Quantifying and Mapping the Grain Size on Pebble Beaches. Remote Sensing, 12(21), Article 21. https://doi.org/10.3390/rs12213659
+
+Wang, C., Lin, X., & Chen, C. (2019). Gravel Image Auto-Segmentation Based on an Improved Normalized Cuts Algorithm. Journal of Applied Mathematics and Physics, 7(3), Article 3. https://doi.org/10.4236/jamp.2019.73044

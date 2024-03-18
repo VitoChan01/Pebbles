@@ -214,10 +214,12 @@ Table 1. Test images
 <figcaption>Figure 8: Consistency over folds.</figcaption>
 </center>
 
+<center>
 <figure style="flex: 1; margin-right: 0px;">
-    <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/Accuracy_plot/pebble_unet_Split2D_kfold_consistency.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/Accuracy_plot/pebble_unet_Split2D_kfold_consistency.png?raw=true width="100%" height="100%"></a>
-    <figcaption>d: Split2D</figcaption>
+    <a href=https://github.com/VitoChan01/Pebbles/blob/master/figure/pebble_point_cloud.png?raw=true><img src=https://github.com/VitoChan01/Pebbles/blob/master/figure/pebble_point_cloud.png?raw=true width="80%" height="80%"></a>
+    <figcaption>Figure 9: E</figcaption>
 </figure>
+</center>
 
 # Conclusion and discussion
 
